@@ -7,31 +7,7 @@ const TOGGLE_IS_FETCHING = 'products/TOGGLE_IS_FETCHING'
 
 let initialState = {
     products: [
-        {
-            "Id": 1,
-            "Name": "Шорты",
-            "Price": 500
-        },
-        {
-            "Id": 2,
-            "Name": "Футболка",
-            "Price": 1000
-        },
-        {
-            "Id": 3,
-            "Name": "Брюки",
-            "Price": 3500
-        },
-        {
-            "Id": 4,
-            "Name": "Рубашка",
-            "Price": 2000
-        },
-        {
-            "Id": 5,
-            "Name": "Сезонный комплект",
-            "Price": 6000
-        }
+
     ],
     isFetching: false,
 }

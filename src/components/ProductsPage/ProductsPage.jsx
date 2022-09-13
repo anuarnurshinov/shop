@@ -1,10 +1,9 @@
 import { Card, CardContent, CardMedia, Grid, Typography, CardActions, Button } from '@mui/material';
 import React, { useEffect } from 'react'
 import itemPhoto from '../../assets/images/itemPhoto.png'
-
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 
 const ProductPage = (props) => {
-  console.log(props.products.name);
 
   useEffect(() => {
     props.getProductsThunk()
@@ -46,8 +45,13 @@ const ProductCard = (props) => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Typography>
         <CardActions>
-          <Button size="small">Добавить в коризну</Button>
-          <Button size="small">Узнать больше</Button>
+
+          <Button size="medium"
+            variant='outlined'
+          >
+            <LocalGroceryStoreIcon
+              color={'primary'} />
+            Добавить</Button>
         </CardActions>
       </CardContent>
     </Card>

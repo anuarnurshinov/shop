@@ -9,3 +9,4 @@ export const store = configureStore({
         loginPage: loginPageReducer,
     }
 })
+window.store = store

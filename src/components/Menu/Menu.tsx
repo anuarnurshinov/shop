@@ -1,6 +1,7 @@
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import Basket from '../Basket/Basket'
 
 export const Menu = (props: any) => {
 
@@ -29,6 +30,7 @@ export const Menu = (props: any) => {
                             sx={menuLogoStyle}>
                             Интернет магазин
                         </Typography>
+                        <Basket />
                         <Button
                         onClick={goToLoginForm}
                          variant={'contained'}> Войти
