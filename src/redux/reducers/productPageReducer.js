@@ -39,9 +39,9 @@ const toggleIsFetching = () => ({
 
 export const getProductsThunk = () => (
     async (dispatch) => {
-        dispatch(toggleIsFetching(true))
+        dispatch(toggleIsFetching())
         let data = await productPageAPI.getProducts()
-        dispatch(toggleIsFetching(false))
+        dispatch(toggleIsFetching())
         dispatch(getProducts(data))
     }
 )

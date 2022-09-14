@@ -1,21 +1,27 @@
-import { Card, CardContent, CardMedia, Grid, Typography, CardActions, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, Grid, Typography, CardActions, Button, CircularProgress } from '@mui/material';
 import React, { useEffect } from 'react'
 import itemPhoto from '../../assets/images/itemPhoto.png'
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 
-const ProductPage = (props) => {
-
+const ProductPage = ({ getProductsThunk, products, isFetching }) => {
+  console.log(isFetching);
   useEffect(() => {
-    props.getProductsThunk()
+    getProductsThunk()
   }, [])
+
+  // if (!isFetching) {
+  //   return (
+  //     <CircularProgress disableShrink />
+  //   )
+  // }
 
   return (
     <>
       <Grid
         container spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }} >
-        {props.products.map((item) => (
-          <Grid item xs={2} sm={4} md={4}>
+        {products.map((item, index) => (
+          <Grid key={index} item xs={2} sm={4} md={4}>
             <ProductCard item={item} />
           </Grid>
         ))}

@@ -1,20 +1,12 @@
-import {
-  Box,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  Button,
-} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Form } from "react-router-dom";
+import ButtonsField from "./FormFields/ButtonsField";
+import LoginField from "./FormFields/LoginField";
+import PasswordField from "./FormFields/PasswordField";
 
 type propsType = {
-  isAuth: boolean;
   logInThunk: (data: loginDataType) => void;
 };
 
@@ -23,10 +15,10 @@ export interface loginDataType {
   password: string;
 }
 
-const LoginPage: React.FC<propsType> = ({ isAuth, logInThunk }) => {
+const LoginPage: React.FC<propsType> = ({ logInThunk }) => {
   const { register, handleSubmit } = useForm<loginDataType>();
+
   const onSubmit: SubmitHandler<loginDataType> = (data) => {
-    console.log(data);
     logInThunk(data);
   };
 
@@ -51,48 +43,32 @@ const LoginPage: React.FC<propsType> = ({ isAuth, logInThunk }) => {
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-          <FormControl sx={{ mr: 1, mb: 1, width: "25ch" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">Логин</InputLabel>
-            <OutlinedInput
-              {...register("login")}
-              onChange={handleChange("login")}
-              id="login"
-              type="text"
-              value={values.login}
-              label={"Логин"}
-            />
-          </FormControl>
-          <FormControl sx={{ mr: 1, mb: 1, width: "25ch" }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-password">
-              Пароль
-            </InputLabel>
-            <OutlinedInput
-              {...register("password")}
-              onChange={handleChange("password")}
-              id="password"
-              type={values.showPassword ? "text" : "password"}
-              value={values.password}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Пароль"
-            />
-          </FormControl>
-        </Box>
-        <Button type="submit" variant={"contained"} size={"large"}>
-          {" "}
-          Войти{" "}
-        </Button>
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography variant="h4" sx={{ m: 3 }}>
+            Вход или регистрация
+          </Typography>
+
+          <LoginField
+            register={register}
+            handleChange={handleChange}
+            values={values}
+          />
+
+          <PasswordField
+            handleClickShowPassword={handleClickShowPassword}
+            handleMouseDownPassword={handleMouseDownPassword}
+            register={register}
+            handleChange={handleChange}
+            values={values}
+          />
+
+          <ButtonsField />
+        </Grid>
       </Form>
     </>
   );

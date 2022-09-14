@@ -46,6 +46,6 @@ export const logInThunk =
   (logInData: loginDataType) => async (dispatch: (arg: any) => void) => {
     dispatch(toggleIsFetching());
     await authPageAPI.logIn(logInData);
-    // dispatch(toggleAuthFlag());
+    dispatch(toggleAuthFlag());
     dispatch(toggleIsFetching());
   };

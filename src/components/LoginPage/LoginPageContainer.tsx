@@ -3,9 +3,7 @@ import { logInThunk } from "../../redux/reducers/loginPageReducer";
 import LoginPage from "./LoginPage";
 
 const mapStateToProps = (state: any) => {
-  return {
-    isAuth: state.loginPage.isAuth,
-  };
+  return {};
 };
 
 const mapDispatchToProps = {
