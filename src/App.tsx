@@ -1,16 +1,17 @@
 import React from 'react';
+import Menu from './components/Menu/Menu'
+import { Container } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 
-import { BrowserRouter } from 'react-router-dom';
-import BaseLayout from './components/BaseLayout';
 
-
-
-function App() {
+function App () {
   return (
-
-    <BrowserRouter>
-   <BaseLayout />
-   </BrowserRouter>
+    <div>
+      <Menu/>
+      <Container sx={{mt:'2em'}}>
+        <Outlet />
+      </Container>
+    </div>
   );
 }
 

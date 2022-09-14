@@ -15,7 +15,7 @@ const ProductPage = (props) => {
         container spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }} >
         {props.products.map((item) => (
-          <Grid item xs={2} sm={4} md={4} key={item.id}>
+          <Grid item xs={2} sm={4} md={4}>
             <ProductCard item={item} />
           </Grid>
         ))}
@@ -24,11 +24,12 @@ const ProductPage = (props) => {
   )
 }
 
+
+
 export default ProductPage
 
 
 const ProductCard = (props) => {
-
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia

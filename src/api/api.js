@@ -14,3 +14,9 @@ export const productPageAPI = {
     },
 }
 
+export const authPageAPI = {
+    logIn(loginData) {
+        return instance.post(`auth`, loginData)
+            .then(unPacking)
+    }
+}
