@@ -1,86 +1,113 @@
-import { Grid, Typography } from "@mui/material";
-import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Form } from "react-router-dom";
-import ButtonsField from "./FormFields/ButtonsField";
-import LoginField from "./FormFields/LoginField";
-import PasswordField from "./FormFields/PasswordField";
+import * as React from "react";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
+import {
+  Button,
+  InputAdornment,
+  IconButton,
+  InputLabel,
+  OutlinedInput,
+  FormControl,
+  Grid,
+} from "@mui/material";
+import { useForm } from "react-hook-form";
 
 type propsType = {
-  logInThunk: (data: loginDataType) => void;
+  logInThunk: (data: any) => void;
 };
-
-export interface loginDataType {
+export type loginDataType = {
   login: string;
   password: string;
-}
+};
 
 const LoginPage: React.FC<propsType> = ({ logInThunk }) => {
+  interface State {
+    showPassword: boolean;
+  }
+  const [values, setValues] = React.useState<State>({
+    showPassword: false,
+  });
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<loginDataType>({
-    mode: "onChange",
+  } = useForm({
+    mode: "onBlur",
   });
+  console.log(errors);
 
-  const onSubmit: SubmitHandler<loginDataType> = (data) => {
-    logInThunk(data);
-  };
-
-  const [values, setValues] = React.useState({
-    login: "",
-    password: "",
-    showPassword: false,
-  });
-
-  const handleChange = (prop: any) => (event: any) => {
-    setValues({ ...values, [prop]: event.target.value });
+  const onSubmit = (data: any) => {
+    alert(JSON.stringify(data));
   };
 
   const handleClickShowPassword = () => {
     setValues({
-      ...values,
       showPassword: !values.showPassword,
     });
   };
-  const handleMouseDownPassword = (event: any) => {
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
   };
 
   return (
-    <>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography variant="h4" sx={{ m: 3 }}>
-            Вход или регистрация
-          </Typography>
+    <Grid container justifyContent="center">
+      <FormControl onSubmit={handleSubmit(onSubmit)}>
+        <FormControl sx={{ m: 1 }}>
+          <InputLabel htmlFor="outlined-adornment-login">Login</InputLabel>
+          <OutlinedInput
+            type={"text"}
+            placeholder="Логин"
+            {...register("login", {
+              required: true,
+              maxLength: 30,
+              minLength: 6,
+              pattern: {
+                value: /^[a-z0-9_-]{3,16}$/,
+                message: "Логин должен состоять из латиницы и цифр",
+              },
+            })}
+          />
+          {errors.login && <p>{`${errors.login.message}`}</p>}
+        </FormControl>
 
-          <LoginField
-            register={register}
-            handleChange={handleChange}
-            values={values}
-            errors={errors}
+        <FormControl sx={{ m: 1 }}>
+          <InputLabel htmlFor="outlined-adornment-password">
+            Password
+          </InputLabel>
+          <OutlinedInput
+            {...register("password", {
+              required: true,
+              maxLength: 30,
+              minLength: 6,
+              pattern: {
+                value: /^[a-z0-9_-]{3,16}$/,
+                message: "Пароль должен состоять из латиницы и цифр",
+              },
+            })}
+            type={values.showPassword ? "text" : "password"}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
 
-          <PasswordField
-            handleClickShowPassword={handleClickShowPassword}
-            handleMouseDownPassword={handleMouseDownPassword}
-            register={register}
-            handleChange={handleChange}
-            values={values}
-            errors={errors}
-          />
+          {errors.password && <p>{`${errors.password.message}`}</p>}
+        </FormControl>
 
-          <ButtonsField />
-        </Grid>
-      </Form>
-    </>
+        <Button type="submit" variant="contained">
+          Отправить
+        </Button>
+      </FormControl>
+    </Grid>
   );
 };
 
