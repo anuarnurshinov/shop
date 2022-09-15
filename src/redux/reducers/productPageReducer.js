@@ -1,4 +1,4 @@
-import { productPageAPI } from '../../api/api';
+import { productPageAPI } from '../../api/api.js';
 
 
 const GET_PRODUCTS = 'products/GET_PRODUCTS'
@@ -22,7 +22,7 @@ export const productPageReducer = (state = initialState, action) => {
         case TOGGLE_IS_FETCHING:
             return {
                 ...state,
-                isFetching: !state.isFetching
+                isFetching: action.flag
             }
         default:
             return state
@@ -33,15 +33,16 @@ export const getProducts = (products) => ({
     type: GET_PRODUCTS,
     products,
 })
-const toggleIsFetching = () => ({
+const toggleIsFetching = (flag) => ({
     type: TOGGLE_IS_FETCHING,
+    flag
 })
 
 export const getProductsThunk = () => (
     async (dispatch) => {
-        dispatch(toggleIsFetching())
+        dispatch(toggleIsFetching(true))
         let data = await productPageAPI.getProducts()
-        dispatch(toggleIsFetching())
+        dispatch(toggleIsFetching(false))
         dispatch(getProducts(data))
     }
 )

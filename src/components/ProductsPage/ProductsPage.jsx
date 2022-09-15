@@ -1,19 +1,19 @@
-import { Card, CardContent, CardMedia, Grid, Typography, CardActions, Button, CircularProgress } from '@mui/material';
+import { Card, CardContent, CardMedia, Grid, Typography, CardActions, Button } from '@mui/material';
 import React, { useEffect } from 'react'
 import itemPhoto from '../../assets/images/itemPhoto.png'
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import LinearBuffer from '../../common/loader';
 
 const ProductPage = ({ getProductsThunk, products, isFetching }) => {
-  console.log(isFetching);
   useEffect(() => {
     getProductsThunk()
   }, [])
 
-  // if (!isFetching) {
-  //   return (
-  //     <CircularProgress disableShrink />
-  //   )
-  // }
+  if (isFetching) {
+    return (
+      <LinearBuffer />
+    )
+  }
 
   return (
     <>

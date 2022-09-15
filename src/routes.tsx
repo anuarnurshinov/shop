@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import LoginPageContainer from "./components/LoginPage/LoginPageContainer";
 import ProductsPageContainer from "./components/ProductsPage/ProductsPageContainer";
+import RegistrationForm from "./components/LoginPage/FormFields/RegistrationForm";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -13,6 +14,7 @@ export const router = createBrowserRouter([
         element: <ProductsPageContainer />,
       },
       { path: "/login", element: <LoginPageContainer /> },
+      { path: "/register", element: <RegistrationForm /> },
     ],
   },
 ]);

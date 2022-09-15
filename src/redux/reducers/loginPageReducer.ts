@@ -1,4 +1,4 @@
-import { authPageAPI } from "../../api/api";
+import { authPageAPI } from "../../api/api.js";
 import { loginDataType } from "../../components/LoginPage/LoginPage";
 
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";

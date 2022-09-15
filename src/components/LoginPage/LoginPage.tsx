@@ -16,7 +16,13 @@ export interface loginDataType {
 }
 
 const LoginPage: React.FC<propsType> = ({ logInThunk }) => {
-  const { register, handleSubmit } = useForm<loginDataType>();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<loginDataType>({
+    mode: "onChange",
+  });
 
   const onSubmit: SubmitHandler<loginDataType> = (data) => {
     logInThunk(data);
@@ -27,9 +33,11 @@ const LoginPage: React.FC<propsType> = ({ logInThunk }) => {
     password: "",
     showPassword: false,
   });
+
   const handleChange = (prop: any) => (event: any) => {
     setValues({ ...values, [prop]: event.target.value });
   };
+
   const handleClickShowPassword = () => {
     setValues({
       ...values,
@@ -57,6 +65,7 @@ const LoginPage: React.FC<propsType> = ({ logInThunk }) => {
             register={register}
             handleChange={handleChange}
             values={values}
+            errors={errors}
           />
 
           <PasswordField
@@ -65,6 +74,7 @@ const LoginPage: React.FC<propsType> = ({ logInThunk }) => {
             register={register}
             handleChange={handleChange}
             values={values}
+            errors={errors}
           />
 
           <ButtonsField />

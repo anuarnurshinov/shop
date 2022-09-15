@@ -10,14 +10,16 @@ import * as React from "react";
 import { valuesForLoginInputsType } from "./LoginField";
 
 type propsType = {
+  errors: any;
   register: any;
-  handleChange: (arg: string) => void;
+  handleChange: (arg: string) => any;
   values: valuesForLoginInputsType;
   handleClickShowPassword: () => void;
   handleMouseDownPassword: (event: any) => void;
 };
 
 const PasswordField: React.FC<propsType> = ({
+  errors,
   register,
   handleChange,
   values,
@@ -28,11 +30,14 @@ const PasswordField: React.FC<propsType> = ({
     <FormControl sx={{ mr: 1, mb: 1, width: "29ch" }} variant="outlined">
       <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
       <OutlinedInput
-        {...register("password")}
-        onChange={handleChange("password")}
-        id="password"
-        type={values.showPassword ? "text" : "password"}
-        value={values.password}
+        {...(register("password"),
+        {
+          required: true,
+          value: values.password,
+          onChange: handleChange("password"),
+          id: "password",
+          type: values.showPassword ? "text" : "password",
+        })}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
