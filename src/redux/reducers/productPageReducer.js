@@ -1,4 +1,4 @@
-import { productPageAPI } from '../../api/api.js';
+import { productPageAPI } from '../../api/api'
 
 
 const GET_PRODUCTS = 'products/GET_PRODUCTS'

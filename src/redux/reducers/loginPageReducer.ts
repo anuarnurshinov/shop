@@ -1,18 +1,18 @@
-import { authPageAPI } from "../../api/api.js";
-import { loginDataType } from "../../components/LoginPage/LoginPage";
+import { authPageAPI } from "../../api/api"
+import { loginDataType } from "../../components/LoginPage/LoginPageTypes"
 
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
-const TOGGLE_AUTH_FLAG = "TOGGLE_AUTH_FLAG";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
+const TOGGLE_AUTH_FLAG = "TOGGLE_AUTH_FLAG"
 
-type initialStateType = typeof initialState;
+type initialStateType = typeof initialState
 
-type userType = {};
+type userType = {}
 
 let initialState = {
   isAuth: false as boolean,
   user: {} as userType,
   isFetching: false as boolean,
-};
+}
 
 export const loginPageReducer = (
   state = initialState,
@@ -23,29 +23,47 @@ export const loginPageReducer = (
       return {
         ...state,
         isFetching: !state.isFetching,
-      };
+      }
     case TOGGLE_AUTH_FLAG:
       return {
         ...state,
-        isAuth: !state.isAuth,
-      };
+        isAuth: action.flag,
+      }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
-export const toggleIsFetching = () => ({
+export const toggleIsFetching = (flag: boolean) => ({
   type: TOGGLE_IS_FETCHING,
-});
-export const toggleAuthFlag = () => ({
+  flag,
+})
+export const toggleAuthFlag = (flag: boolean) => ({
   type: TOGGLE_AUTH_FLAG,
-});
+  flag,
+})
 
 export const logInThunk =
   (logInData: loginDataType) => async (dispatch: (arg: any) => void) => {
-    dispatch(toggleIsFetching());
-    await authPageAPI.logIn(logInData);
-    dispatch(toggleAuthFlag());
-    dispatch(toggleIsFetching());
-  };
+    dispatch(toggleIsFetching(true))
+    let response = await authPageAPI.logIn(logInData)
+    if (response.result) {
+      dispatch(toggleAuthFlag(true))
+    }
+    dispatch(toggleIsFetching(false))
+  }
+
+export const registerThunk =
+  (registerData: loginDataType) => async (dispatch: (arg: any) => void) => {
+    console.log("here")
+
+    dispatch(toggleIsFetching(true))
+    let response = await authPageAPI.registration(registerData)
+    console.log(response)
+
+    if (response.data.result) {
+      dispatch(toggleAuthFlag(true))
+    }
+    dispatch(toggleIsFetching(false))
+  }

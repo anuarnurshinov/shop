@@ -1,20 +1,20 @@
-import * as React from 'react';
+import * as React from 'react'
 import { Box, Drawer, Button } from '@mui/material'
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket'
 
 
 export default function Basket() {
     const [state, setState] = React.useState({
         isOpen: false,
-    });
+    })
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
+            return
         }
 
-        setState({ ...state, [anchor]: open });
-    };
+        setState({ ...state, [anchor]: open })
+    }
 
     const list = (anchor) => (
         <Box
@@ -25,7 +25,7 @@ export default function Basket() {
         >
             {'Добавленные товары'}
         </Box>
-    );
+    )
 
     return (
         <div>
@@ -46,5 +46,5 @@ export default function Basket() {
                 </React.Fragment>
             }
         </div>
-    );
+    )
 }

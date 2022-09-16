@@ -1,8 +1,8 @@
-import { Card, CardContent, CardMedia, Grid, Typography, CardActions, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, Grid, Typography, CardActions, Button } from '@mui/material'
 import React, { useEffect } from 'react'
 import itemPhoto from '../../assets/images/itemPhoto.png'
-import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import LinearBuffer from '../../common/loader';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore'
+import LinearBuffer from '../../common/Loader'
 
 const ProductPage = ({ getProductsThunk, products, isFetching }) => {
   useEffect(() => {
